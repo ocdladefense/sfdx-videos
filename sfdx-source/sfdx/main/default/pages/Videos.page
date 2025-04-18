@@ -1,0 +1,158 @@
+<apex:page controller="VideoApp"  showHeader="false" standardStylesheets="false" docType="html-5.0" cache="false" applyHtmlTag="false" applyBodyTag="false">
+     
+    <apex:composition template="{!template}">
+        
+
+         
+        <apex:define name="title">
+            <title>OCDLA Video Player</title> 
+        </apex:define>
+  
+        <apex:define name="styles">
+            <style type="text/css">
+                
+            @media only screen and (max-width: 800px) {
+                body.full-page #banner {
+                    display: none;
+                }
+                
+                body.full-page .page-wrapper {
+                    margin-top: 0px !important;
+                }
+                    
+                body.full-page .main {
+                    position: fixed;
+                    top: 0px;
+                    left: 0px;
+                    width: 100%;
+                    height: auto;
+                }
+                    
+                body.full-page .column-right {
+                    margin-top: 52vh;
+                }
+                    
+                body.full-page #player {
+                    min-height: auto;
+                    height: 40vh;
+                }
+            }
+            .video-controls-buttons img {
+                cursor: pointer;
+            }
+                
+			.subject-picker {
+             	margin-bottom: 10px;   
+			}
+			</style>            
+            <apex:stylesheet value="{!$Resource.VideoStyles}?{!cacheKey}" />
+            
+            <style type="text/css">
+                
+                
+            </style> 
+        </apex:define>
+         
+        
+        
+        
+        <apex:define name="scripts">
+            
+            <apex:includeScript value="{!$Resource.VideoAssetServiceSalesforce}?{!cacheKey}" />
+            <apex:includeScript value="{!$Resource.VideoAssetServiceMock}?{!cacheKey}" />
+            <apex:includeScript value="{!$Resource.VideoAccess}?{!cacheKey}" />
+            <apex:includeScript value="{!$Resource.VideoPlayer}?{!cacheKey}" />
+            <apex:includeScript value="{!$Resource.VideoComponents}?{!cacheKey}" />
+            <apex:includeScript value="{!$Resource.VideoEvents}?{!cacheKey}" />
+            <apex:includeScript value="{!$Resource.VideoApp}?{!cacheKey}" />
+            
+        </apex:define>
+        
+        
+        
+        
+        
+        <apex:define name="body">
+            <style type="text/css">
+                
+                #player {
+                background-image: url("{!URLFOR($Resource.VideoStageLogo)}");
+                }
+                
+            </style>
+            <script>
+            const initialSubjectId = '{!subjectId}'; // Rename to EventId?
+            const initialVideoId = '{!resourceId}';
+            const videoThumbnailDefault = '{!$Resource.VideoThumbnailDefault}';
+            </script>
+            
+            <!--- <c:ClickpdxShoppingCart /> --->
+            
+            
+            <div class="column main">
+                
+                
+                <div class="content">
+                    
+                    <div id="video-stage">
+                        
+                        
+                        <div class="video-container">
+       
+                            <div id="player"></div>
+                            
+                        </div>
+                        <div id="video-controls">
+                            <div class="video-controls-slider">
+                                <input type="range" id="time-slider" value="0" style="width: 100%;" />
+                            </div>
+                            <div class="video-controls-buttons">
+                                <apex:image html-data-action="play" alt="Play" url="{!URLFOR($Resource.VideoPlayIcon)}" />
+                                <apex:image html-data-action="pause"  alt="Pause" url="{!URLFOR($Resource.VideoPauseIcon)}" />
+                                <apex:image html-data-action="stop"  alt="Stop" url="{!URLFOR($Resource.VideoStopIcon)}" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div><!-- end content -->
+                
+
+            </div>
+            
+            
+            <div class="column column-right" id="picker">
+                <div id="picker-content">
+                    
+                    <apex:form >
+                        <h2 style="font-size:12pt;">
+                            Select your CLE Video here
+                        </h2>
+                        <apex:selectList size="1" styleClass="subject-picker">
+                            <apex:selectOptions value="{!subjects}"/>
+                        </apex:selectList>
+                    </apex:form>
+                    <div id="picker-list">
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </apex:define>
+        
+        
+
+
+        <apex:define name="footerScripts">
+
+            
+            <script type="text/javascript">
+            
+            document.getElementsByTagName("body")[0].classList.add("full-page");
+			</script>
+            
+        </apex:define>
+
+    </apex:composition>
+
+
+</apex:page>

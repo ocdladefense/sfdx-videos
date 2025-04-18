@@ -86,7 +86,7 @@
             const videoThumbnailDefault = '{!$Resource.VideoThumbnailDefault}';
             </script>
             
-            <!--- <c:ClickpdxShoppingCart /> --->
+            <!-- <c:ClickpdxShoppingCart /> -->
             
             
             <div class="column main">
